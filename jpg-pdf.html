@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate JPG to PDF Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --background: #f8fafc;
+            --text: #1e293b;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #818cf8;
+            --secondary: #a78bfa;
+            --background: #0f172a;
+            --text: #f8fafc;
+            --card-bg: #1e293b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(31, 41, 55, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(45deg, var(--background), color-mix(in srgb, var(--background) 90%, rgba(0,0,0,0.1)));
+            color: var(--text);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease;
+        }
+
+        .dropzone {
+            border: 2px dashed var(--primary);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .dropzone.dragover {
+            border-color: var(--secondary);
+            background: rgba(99, 102, 241, 0.1);
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateZ(20px);
+        }
+
+        .dropzone::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .preview-card {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+            cursor: grab;
+            transform-style: preserve-3d;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-5px) scale(1.02) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--primary);
+        }
+
+        select, button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        select {
+            background: var(--glass-bg);
+            border: 1px solid var(--primary);
+        }
+
+        button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        [data-theme="dark"] .loading {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes shine {
+            0% { transform: translate(-50%, -50%) rotate(45deg); }
+            100% { transform: translate(150%, 150%) rotate(45deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .preview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">🌓</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>JPG to PDF Converter</h1>
+            <p>Transform your images into professional PDF documents</p>
+        </div>
+
+        <div class="dropzone" id="dropzone">
+            <i class="fas fa-file-upload" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <p>Drag & drop images here<br>or <span style="color: var(--primary);">browse files</span></p>
+            <input type="file" id="fileInput" accept="image/jpeg" multiple hidden>
+        </div>
+
+        <div class="controls">
+            <select id="pageSize">
+                <option value="a4">A4 Size</option>
+                <option value="letter">Letter Size</option>
+            </select>
+            
+            <select id="orientation">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+            </select>
+
+            <button id="convertBtn">
+                <i class="fas fa-file-pdf"></i> Convert to PDF
+            </button>
+        </div>
+
+        <div class="preview-grid" id="preview"></div>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        const { jsPDF } = window.jspdf;
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+        const convertBtn = document.getElementById('convertBtn');
+        const loading = document.getElementById('loading');
+        const themeToggle = document.getElementById('themeToggle');
+
+        // Theme Toggle
+        function toggleTheme() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? '' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            themeToggle.textContent = isDark ? '🌓' : '🌞';
+        }
+
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '🌞';
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Drag & Drop Handlers
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+
+        ['dragleave', 'dragend'].forEach(event => {
+            dropzone.addEventListener(event, () => {
+                dropzone.classList.remove('dragover');
+            });
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        dropzone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // File Handling
+        function handleFiles(files) {
+            preview.innerHTML = '';
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const card = document.createElement('div');
+                    card.className = 'preview-card';
+                    card.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview ${index + 1}">
+                        <div class="page-number">${index + 1}</div>
+                    `;
+                    preview.appendChild(card);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Conversion Function
+        convertBtn.addEventListener('click', async () => {
+            const images = preview.querySelectorAll('img');
+            if (!images.length) return alert('Please select images first!');
+
+            loading.style.display = 'flex';
+            
+            try {
+                const pdf = new jsPDF({
+                    orientation: document.getElementById('orientation').value,
+                    unit: 'mm',
+                    format: document.getElementById('pageSize').value
+                });
+
+                for (let i = 0; i < images.length; i++) {
+                    if (i > 0) pdf.addPage();
+                    
+                    const canvas = await html2canvas(images[i]);
+                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                    
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
+                    
+                    pdf.addImage(imgData, 'JPEG', 
+                        (pageWidth - canvas.width * ratio) / 2,
+                        (pageHeight - canvas.height * ratio) / 2,
+                        canvas.width * ratio,
+                        canvas.height * ratio
+                    );
+                }
+
+                pdf.save('converted.pdf');
+            } catch (error) {
+                alert('Conversion error: ' + error.message);
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

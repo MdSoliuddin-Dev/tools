@@ -1,236 +1,499 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-16">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Md Soliuddin">
     <meta name="keywords" content="image compressor, optimize images, reduce image size, web optimization, compress image online, image compression, image optimizer">
-    <title>DocMaster</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Ultimate File Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4F46E5;
-            --secondary: #6366F1;
-            --background: #FFFFFF;
-            --text: #1F2937;
-            --card-bg: #F8FAFC;
-            --border: #E5E7EB;
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --background: #ffffff;
+            --text: #1e293b;
+            --card-bg: #ffffff;
+            --card-border: rgba(0,0,0,0.05);
+            --shadow: rgba(0,0,0,0.1);
+            --section-bg: #f8fafc;
         }
 
         [data-theme="dark"] {
-            --primary: #818CF8;
-            --secondary: #A5B4FC;
-            --background: #111827;
-            --text: #F9FAFB;
-            --card-bg: #1F2937;
-            --border: #374151;
+            --background: #0f172a;
+            --text: #f8fafc;
+            --card-bg: #1e293b;
+            --card-border: rgba(255,255,255,0.1);
+            --shadow: rgba(0,0,0,0.3);
+            --section-bg: #1e293b;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            transition: background 0.3s, color 0.1s;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: var(--background);
             color: var(--text);
-            line-height: 1.6;
+            font-family: 'Inter', system-ui;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 0 1.5rem;
         }
 
-        /* Navigation */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
+        /* Theme Toggle */
         .theme-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 0.75rem;
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             cursor: pointer;
+            box-shadow: 0 4px 12px var(--shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Hero Section */
+        /* Header */
         .hero {
             text-align: center;
-            padding: 6rem 1rem;
-            margin: 2rem 0;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            padding: 8rem 0 10rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            margin-top: 2rem;
-            transition: transform 0.2s ease;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: -6rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
+        /* Tool Categories */
+        .tool-categories {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            border: none;
+            background: var(--section-bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
         }
 
         /* Tools Grid */
-        .tools-section {
-            margin: 4rem 0;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text);
-        }
-
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .tool-card {
             background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid var(--border);
-            transition: transform 0.2s ease;
+            border: 1px solid var(--card-border);
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            text-align: center;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px var(--shadow);
+            position: relative;
+            overflow: hidden;
         }
 
         .tool-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotateX(3deg) rotateY(3deg);
+            box-shadow: 0 12px 32px var(--shadow);
         }
 
         .tool-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 1rem;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        /* Ads */
+        .ad-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .ad-unit {
+            background: var(--section-bg);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+            .tools-grid {
+                grid-template-columns: 1fr;
             }
             
-            .section-title {
-                font-size: 1.5rem;
+            .hero {
+                padding: 6rem 0 8rem 0;
             }
+            
+            .tool-categories {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            color: var(--text);
+            opacity: 0.8;
+            margin-top: 4rem;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar container">
-        <div class="logo"></div>
-        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-    </nav>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
 
-    <section class="hero container">
-        <h1>Transform Your Documents & Images</h1>
-         <h2>Made By Md Soliuddin</h2>
-        <p>All-in-one solution for PDF and image processing</p>
-       <a href="#tools" class="cta-button">Get Started</a>
-    </section>
+    <header class="hero">
+        <div class="container">
+            <h1>Ultimate File Tools</h1>
+            <h5>Created By Md Soliuddin</h5>
+            <h4>Every tool you need to work with PDFs in one place</h4>
+<p>Every tool you need to use PDFs, at your fingertips. All are 100% FREE and easy to use! Merge, split, compress, convert, rotate, unlock and watermark PDFs with just a few clicks.</p>
+        </div>
+    </header>
 
     <main class="container">
-        <section class="tools-section" id="tools">
-            <h2 class="section-title">PDF Tools</h2>
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <i class="tool-icon fas fa-file-pdf"></i>
-                    <h3>Merge PDF</h3>
-                    <h4>Created By Md Soliuddin</h4>
-                    <p>Combine multiple PDF files into one</p>
-                </div>
-                <div class="tool-card">
-                    <i class="tool-icon fas fa-cut"></i>
-                    <h3>Split PDF</h3>
-                    <h4>Created By Md Soliuddin</h4>
-                    <p>Divide PDF into multiple documents</p>
-                </div>
-                <!-- Add more PDF tools here -->
+        <!-- Ad Slot 1 -->
+        <div class="ad-container">
+            <div class="ad-unit">
+                <!-- Replace with your ad code -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-0000000000000000"
+                    data-ad-slot="1234567890"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
+        <div class="tool-categories">
+            <button class="category-btn active" data-category="image">Image Tools</button>
+            <button class="category-btn" data-category="pdf">PDF Tools</button>
+        </div>
+
+        <!-- Image Tools -->
+        <div class="tools-grid" id="image-tools">
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-compress-alt"></i></div>
+                <h3>Image Compressor</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Reduce image size without quality loss</p>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-image"></i></div>
+                <h3>Format Converter</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert between JPG, PNG, WEBP</p>
             </div>
 
-            <h2 class="section-title" style="margin-top: 4rem;">Conversion Tools</h2>
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <i class="tool-icon fas fa-file-word"></i>
-                    <h3>Word to PDF</h3>
-                    <h4>Created By Md Soliuddin</h4>
-                    <p>Convert DOC/DOCX to PDF</p>
-                </div>
-                <a href="jpg-pdf.html" style="text-decoration: none; color: inherit">
-    <div class="tool-card">
-        <i class="tool-icon fas fa-file-image"></i>
-        <h3>JPG to PDF</h3>
-        <h4>Created By Md Soliuddin</h4>
-        <p>Convert images to PDF documents</p>
-              </div>
-              </a>
-
-                <!-- Add more conversion tools here -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-expand-alt"></i></div>
+                <h3>Image Resizer</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Resize images to any dimension</p>
             </div>
 
-            <h2 class="section-title" style="margin-top: 4rem;">Image Tools</h2>
-            <div class="tools-grid">
-                <a href="img.compress.html" style="text-decoration: none; color: inherit;">
-    <div class="tool-card">
-        <i class="tool-icon fas fa-compress"></i>
-        <h3>Compress Image</h3>
-        <h4>Created By Md Soliuddin</h4>
-        <p>Reduce image size without quality loss</p>
-    </div>
-</a>
-
-                <a href="img.edit.html" style="text-decoration: none; color: inherit">
-    <div class="tool-card">
-        <i class="tool-icon fas fa-crop"></i>
-        <h3>Edit Image</h3>
-        <h4>Created By Md Soliuddin</h4>
-        <p>Resize, crop, and enhance images</p>
-    </div>
-</a>
-                <!-- Add more image tools here -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-magic"></i></div>
+                <h3>Background Remover</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Remove image backgrounds automatically</p>
             </div>
-        </section>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-sliders-h"></i></div>
+                <h3>Photo Editor</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Advanced editing tools & filters</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-tint"></i></div>
+                <h3>Watermark Tool</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Add custom watermarks</p>
+            </div>
+        </div>
+
+        <!-- PDF Tools -->
+        <div class="tools-grid" id="pdf-tools" style="display: none;">
+            <!-- PDF Conversion -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
+                <h3>JPG to PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert images to PDF</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-archive"></i></div>
+                <h3>Compress PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Reduce PDF file size</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-copy"></i></div>
+                <h3>Merge PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Combine multiple PDF files</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-word"></i></div>
+                <h3>PDF to Word</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert PDF to editable Word</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-edit"></i></div>
+                <h3>Edit PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Modify PDF content directly</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-cut"></i></div>
+                <h3>Split PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Divide PDF into multiple files</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-powerpoint"></i></div>
+                <h3>PDF to PPT</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert PDF to PowerPoint</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-excel"></i></div>
+                <h3>PDF to Excel</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert PDF to spreadsheet</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-word"></i></div>
+                <h3>Word to PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert Word to PDF</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-powerpoint"></i></div>
+                <h3>PPT to PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert PowerPoint to PDF</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-excel"></i></div>
+                <h3>Excel to PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert Excel to PDF</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-image"></i></div>
+                <h3>PDF to JPG</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Extract images from PDF</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-redo-alt"></i></div>
+                <h3>Rotate PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Adjust page orientation</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-code"></i></div>
+                <h3>HTML to PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert web pages to PDF</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-unlock"></i></div>
+                <h3>Unlock PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Remove password protection</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-lock"></i></div>
+                <h3>Protect PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Add password security</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-hashtag"></i></div>
+                <h3>Page Numbers</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Add/Edit page numbers</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-scanner"></i></div>
+                <h3>Scan to PDF</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Create PDF from scans</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-file-contract"></i></div>
+                <h3>PDF to PDF/A</h3>
+                 <P>Created By Md Soliuddin</P>
+                <p>Convert to archival format</p>
+            </div>
+        </div>
+
+        <!-- Ad Slot 2 -->
+        <div class="ad-container">
+            <div class="ad-unit">
+                <!-- Replace with your ad code -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-0000000000000000"
+                    data-ad-slot="0987654321"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            </div>
+        </div>
     </main>
+
+    <footer>
+        <!-- Ad Slot 3 -->
+        <div class="ad-container">
+            <div class="ad-unit">
+                <!-- Replace with your ad code -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-0000000000000000"
+                    data-ad-slot="1122334455"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>© 2023 Ultimate File Tools. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         // Theme Toggle
-        function toggleTheme() {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const themeToggle = document.querySelector('.theme-toggle');
+        const icon = themeToggle.querySelector('i');
+
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
 
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
         // Initialize theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        setTheme(savedTheme);
+
+        // 3D Card Effects
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateY = (x - rect.width/2) / 15;
+                const rotateX = (rect.height/2 - y) / 15;
+                
+                card.style.transform = `
+                    perspective(1000px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    translateZ(10px)
+                `;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+
+        // Category Switching
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const imageTools = document.getElementById('image-tools');
+        const pdfTools = document.getElementById('pdf-tools');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                if(btn.dataset.category === 'image') {
+                    imageTools.style.display = 'grid';
+                    pdfTools.style.display = 'none';
+                } else {
+                    imageTools.style.display = 'none';
+                    pdfTools.style.display = 'grid';
+                }
+            });
+        });
+
+        // Initialize ads (replace with your actual ads code)
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </body>
 </html>

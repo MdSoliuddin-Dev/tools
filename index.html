@@ -178,10 +178,36 @@
             opacity: 0.8;
             margin-top: 4rem;
         }
+        /* Add these new styles */
+        .tool-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+
+        .tool-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        a:visited .tool-card {
+            background: var(--card-bg);
+        }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" aria-label="Toggle theme">
+      <button class="theme-toggle" aria-label="Toggle theme">
         <i class="fas fa-moon"></i>
     </button>
 
@@ -189,11 +215,24 @@
         <div class="container">
             <h1>Ultimate File Tools</h1>
             <p>Transform Your Files with Professional-grade Tools</p>
+            
+            
+             <!-- Ad Slot 1 -->
+        <div class="ad-container">
+            <div class="ad-unit">
+                <!-- Replace with your ad code -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-0000000000000000"
+                    data-ad-slot="0987654321"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Ad Slot 1 -->
+        <!-- Ad Slot 2 -->
         <div class="ad-container">
             <div class="ad-unit">
                 <!-- Replace with your ad code -->
@@ -210,32 +249,38 @@
             <button class="category-btn active" data-category="image">Image Tools</button>
             <button class="category-btn" data-category="pdf">PDF Tools</button>
         </div>
-
-        <!-- Image Tools -->
+    <main class="container">
+    
+        <!-- Image Tools Grid -->
         <div class="tools-grid" id="image-tools">
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-compress-alt"></i></div>
-                <h3>Image Compressor</h3>
-                <p>Reduce image size without quality loss</p>
-            </div>
+            <a href="img.compress.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-compress-alt"></i></div>
+                    <h3>Image Compressor</h3>
+                    <p>Reduce image size without quality loss</p>
+                </div>
+            </a>
             
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-image"></i></div>
-                <h3>Format Converter</h3>
-                <p>Convert between JPG, PNG, WEBP</p>
-            </div>
-
+            <!-- Add similar link wrappers for all image tools -->
+            <a href="#format-converter" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-file-image"></i></div>
+                    <h3>Format Converter</h3>
+                    <p>Convert between JPG, PNG, WEBP</p>
+                </div>
+            </a>
+            <a href="#format-converter" class="tool-link">
             <div class="tool-card">
                 <div class="tool-icon"><i class="fas fa-expand-alt"></i></div>
                 <h3>Image Resizer</h3>
                 <p>Resize images to any dimension</p>
-            </div>
-
+            </div></a>
+            <a href="#format-converter" class="tool-link">
             <div class="tool-card">
                 <div class="tool-icon"><i class="fas fa-magic"></i></div>
                 <h3>Background Remover</h3>
                 <p>Remove image backgrounds automatically</p>
-            </div>
+            </div></a>
 
             <div class="tool-card">
                 <div class="tool-icon"><i class="fas fa-sliders-h"></i></div>
@@ -250,20 +295,26 @@
             </div>
         </div>
 
-        <!-- PDF Tools -->
-        <div class="tools-grid" id="pdf-tools" style="display: none;">
-            <!-- PDF Conversion -->
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
-                <h3>JPG to PDF</h3>
-                <p>Convert images to PDF</p>
-            </div>
+        </div>
 
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-archive"></i></div>
-                <h3>Compress PDF</h3>
-                <p>Reduce PDF file size</p>
-            </div>
+        <!-- PDF Tools Grid -->
+        <div class="tools-grid" id="pdf-tools" style="display: none;">
+            <a href="#jpg-to-pdf" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>JPG to PDF</h3>
+                    <p>Convert images to PDF</p>
+                </div>
+            </a>
+
+            <!-- Add all remaining PDF tools with same pattern -->
+            <a href="#compress-pdf" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-file-archive"></i></div>
+                    <h3>Compress PDF</h3>
+                    <p>Reduce PDF file size</p>
+                </div>
+            </a>
 
             <div class="tool-card">
                 <div class="tool-icon"><i class="fas fa-copy"></i></div>
@@ -367,22 +418,10 @@
                 <p>Convert to archival format</p>
             </div>
         </div>
-
-        <!-- Ad Slot 2 -->
-        <div class="ad-container">
-            <div class="ad-unit">
-                <!-- Replace with your ad code -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-0000000000000000"
-                    data-ad-slot="0987654321"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-            </div>
         </div>
     </main>
-
-    <footer>
+     
+     <footer>
         <!-- Ad Slot 3 -->
         <div class="ad-container">
             <div class="ad-unit">
@@ -400,8 +439,16 @@
             <p>© 2023 Ultimate File Tools. All rights reserved.</p>
         </div>
     </footer>
-
     <script>
+        // Update JavaScript for link handling
+        document.querySelectorAll('.tool-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Add your actual navigation logic here
+                console.log('Navigating to:', link.getAttribute('href'));
+            });
+        });
+
         // Theme Toggle
         const themeToggle = document.querySelector('.theme-toggle');
         const icon = themeToggle.querySelector('i');

@@ -46,7 +46,6 @@
             padding: 0 1.5rem;
         }
 
-        /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: 1.5rem;
@@ -65,7 +64,6 @@
             justify-content: center;
         }
 
-        /* Header */
         .hero {
             text-align: center;
             padding: 8rem 0 10rem 0;
@@ -77,7 +75,6 @@
             overflow: hidden;
         }
 
-        /* Tool Categories */
         .tool-categories {
             display: flex;
             gap: 1rem;
@@ -100,7 +97,6 @@
             color: white;
         }
 
-        /* Tools Grid */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -109,18 +105,24 @@
             z-index: 2;
         }
 
+        .tool-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+            position: relative;
+        }
+
         .tool-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 1.25rem;
             padding: 1.75rem;
             text-align: center;
-            cursor: pointer;
             transform-style: preserve-3d;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 24px var(--shadow);
-            position: relative;
-            overflow: hidden;
+            height: 100%;
         }
 
         .tool-card:hover {
@@ -142,7 +144,6 @@
             transition: transform 0.3s;
         }
 
-        /* Ads */
         .ad-container {
             margin: 2rem 0;
             text-align: center;
@@ -155,7 +156,6 @@
             margin: 1rem 0;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .tools-grid {
                 grid-template-columns: 1fr;
@@ -170,7 +170,6 @@
             }
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 4rem 0 2rem;
@@ -178,36 +177,10 @@
             opacity: 0.8;
             margin-top: 4rem;
         }
-        /* Add these new styles */
-        .tool-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            height: 100%;
-        }
-
-        .tool-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tool-card::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-        }
-
-        a:visited .tool-card {
-            background: var(--card-bg);
-        }
     </style>
 </head>
 <body>
-      <button class="theme-toggle" aria-label="Toggle theme">
+    <button class="theme-toggle" aria-label="Toggle theme">
         <i class="fas fa-moon"></i>
     </button>
 
@@ -215,27 +188,22 @@
         <div class="container">
             <h1>Ultimate File Tools</h1>
             <p>Transform Your Files with Professional-grade Tools</p>
-            
-            
-             <!-- Ad Slot 1 -->
-        <div class="ad-container">
-            <div class="ad-unit">
-                <!-- Replace with your ad code -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-0000000000000000"
-                    data-ad-slot="0987654321"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
+            <div class="ad-container">
+                <div class="ad-unit">
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-0000000000000000"
+                        data-ad-slot="0987654321"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Ad Slot 2 -->
         <div class="ad-container">
             <div class="ad-unit">
-                <!-- Replace with your ad code -->
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-0000000000000000"
@@ -249,9 +217,8 @@
             <button class="category-btn active" data-category="image">Image Tools</button>
             <button class="category-btn" data-category="pdf">PDF Tools</button>
         </div>
-    <main class="container">
-    
-        <!-- Image Tools Grid -->
+
+        <!-- Image Tools -->
         <div class="tools-grid" id="image-tools">
             <a href="img.compress.html" class="tool-link">
                 <div class="tool-card">
@@ -261,45 +228,50 @@
                 </div>
             </a>
             
-            <!-- Add similar link wrappers for all image tools -->
-            <a href="#format-converter" class="tool-link">
+            <a href="format-converter.html" class="tool-link">
                 <div class="tool-card">
                     <div class="tool-icon"><i class="fas fa-file-image"></i></div>
                     <h3>Format Converter</h3>
                     <p>Convert between JPG, PNG, WEBP</p>
                 </div>
             </a>
-            <a href="#format-converter" class="tool-link">
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-expand-alt"></i></div>
-                <h3>Image Resizer</h3>
-                <p>Resize images to any dimension</p>
-            </div></a>
-            <a href="#format-converter" class="tool-link">
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-magic"></i></div>
-                <h3>Background Remover</h3>
-                <p>Remove image backgrounds automatically</p>
-            </div></a>
 
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-sliders-h"></i></div>
-                <h3>Photo Editor</h3>
-                <p>Advanced editing tools & filters</p>
-            </div>
+            <a href="image-resizer.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-expand-alt"></i></div>
+                    <h3>Image Resizer</h3>
+                    <p>Resize images to any dimension</p>
+                </div>
+            </a>
 
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-tint"></i></div>
-                <h3>Watermark Tool</h3>
-                <p>Add custom watermarks</p>
-            </div>
+            <a href="background-remover.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-magic"></i></div>
+                    <h3>Background Remover</h3>
+                    <p>Remove image backgrounds automatically</p>
+                </div>
+            </a>
+
+            <a href="photo-editor.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Photo Editor</h3>
+                    <p>Advanced editing tools & filters</p>
+                </div>
+            </a>
+
+            <a href="watermark-tool.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-tint"></i></div>
+                    <h3>Watermark Tool</h3>
+                    <p>Add custom watermarks</p>
+                </div>
+            </a>
         </div>
 
-        </div>
-
-        <!-- PDF Tools Grid -->
+        <!-- PDF Tools -->
         <div class="tools-grid" id="pdf-tools" style="display: none;">
-            <a href="#jpg-to-pdf" class="tool-link">
+            <a href="jpg-to-pdf.html" class="tool-link">
                 <div class="tool-card">
                     <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
                     <h3>JPG to PDF</h3>
@@ -307,8 +279,7 @@
                 </div>
             </a>
 
-            <!-- Add all remaining PDF tools with same pattern -->
-            <a href="#compress-pdf" class="tool-link">
+            <a href="compress-pdf.html" class="tool-link">
                 <div class="tool-card">
                     <div class="tool-icon"><i class="fas fa-file-archive"></i></div>
                     <h3>Compress PDF</h3>
@@ -316,116 +287,21 @@
                 </div>
             </a>
 
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-copy"></i></div>
-                <h3>Merge PDF</h3>
-                <p>Combine multiple PDF files</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-word"></i></div>
-                <h3>PDF to Word</h3>
-                <p>Convert PDF to editable Word</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-edit"></i></div>
-                <h3>Edit PDF</h3>
-                <p>Modify PDF content directly</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-cut"></i></div>
-                <h3>Split PDF</h3>
-                <p>Divide PDF into multiple files</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-powerpoint"></i></div>
-                <h3>PDF to PPT</h3>
-                <p>Convert PDF to PowerPoint</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-excel"></i></div>
-                <h3>PDF to Excel</h3>
-                <p>Convert PDF to spreadsheet</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-word"></i></div>
-                <h3>Word to PDF</h3>
-                <p>Convert Word to PDF</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-powerpoint"></i></div>
-                <h3>PPT to PDF</h3>
-                <p>Convert PowerPoint to PDF</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-excel"></i></div>
-                <h3>Excel to PDF</h3>
-                <p>Convert Excel to PDF</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-image"></i></div>
-                <h3>PDF to JPG</h3>
-                <p>Extract images from PDF</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-redo-alt"></i></div>
-                <h3>Rotate PDF</h3>
-                <p>Adjust page orientation</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-code"></i></div>
-                <h3>HTML to PDF</h3>
-                <p>Convert web pages to PDF</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-unlock"></i></div>
-                <h3>Unlock PDF</h3>
-                <p>Remove password protection</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-lock"></i></div>
-                <h3>Protect PDF</h3>
-                <p>Add password security</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-hashtag"></i></div>
-                <h3>Page Numbers</h3>
-                <p>Add/Edit page numbers</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-scanner"></i></div>
-                <h3>Scan to PDF</h3>
-                <p>Create PDF from scans</p>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-icon"><i class="fas fa-file-contract"></i></div>
-                <h3>PDF to PDF/A</h3>
-                <p>Convert to archival format</p>
-            </div>
-        </div>
+            <!-- Add remaining PDF tools following same pattern -->
+            <!-- Example of additional tool -->
+            <a href="merge-pdf.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-copy"></i></div>
+                    <h3>Merge PDF</h3>
+                    <p>Combine multiple PDF files</p>
+                </div>
+            </a>
         </div>
     </main>
-     
-     <footer>
-        <!-- Ad Slot 3 -->
+
+    <footer>
         <div class="ad-container">
             <div class="ad-unit">
-                <!-- Replace with your ad code -->
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-0000000000000000"
@@ -434,25 +310,16 @@
                     data-full-width-responsive="true"></ins>
             </div>
         </div>
-
         <div class="container">
             <p>© 2023 Ultimate File Tools. All rights reserved.</p>
         </div>
     </footer>
-    <script>
-        // Update JavaScript for link handling
-        document.querySelectorAll('.tool-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Add your actual navigation logic here
-                console.log('Navigating to:', link.getAttribute('href'));
-            });
-        });
 
-        // Theme Toggle
+    <script>
+        // Theme Management
         const themeToggle = document.querySelector('.theme-toggle');
         const icon = themeToggle.querySelector('i');
-
+        
         function setTheme(theme) {
             document.body.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
@@ -465,17 +332,29 @@
         });
 
         // Initialize theme
-        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const savedTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         setTheme(savedTheme);
 
-        // 3D Card Effects
+        // Category Switching
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                document.getElementById('image-tools').style.display = 
+                    btn.dataset.category === 'image' ? 'grid' : 'none';
+                document.getElementById('pdf-tools').style.display = 
+                    btn.dataset.category === 'pdf' ? 'grid' : 'none';
+            });
+        });
+
+        // 3D Card Effect
         document.querySelectorAll('.tool-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const rotateY = (x - rect.width/2) / 15;
-                const rotateX = (rect.height/2 - y) / 15;
+                const rotateY = (e.clientX - rect.left - rect.width/2) / 15;
+                const rotateX = (rect.height/2 - (e.clientY - rect.top)) / 15;
                 
                 card.style.transform = `
                     perspective(1000px)
@@ -490,27 +369,7 @@
             });
         });
 
-        // Category Switching
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const imageTools = document.getElementById('image-tools');
-        const pdfTools = document.getElementById('pdf-tools');
-
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                if(btn.dataset.category === 'image') {
-                    imageTools.style.display = 'grid';
-                    pdfTools.style.display = 'none';
-                } else {
-                    imageTools.style.display = 'none';
-                    pdfTools.style.display = 'grid';
-                }
-            });
-        });
-
-        // Initialize ads (replace with your actual ads code)
+        // Initialize Ads
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </body>

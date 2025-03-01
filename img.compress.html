@@ -1,407 +1,376 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-16">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Compress images online for free with adjustable quality. Optimize JPEG, PNG, and WEBP images for web and mobile.">
-    <meta name="keywords" content="image compressor, optimize images, reduce image size, web optimization, compress image online, image compression, image optimizer">
-    <meta name="author" content="Md Soliuddin">
-    <title>Image Compressor | Free Online Image Optimization Tool</title>
-    
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-            crossorigin="anonymous"></script>
-
+    <title>Ultimate File Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #3b82f6;
-            --secondary: #60a5fa;
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
             --background: #ffffff;
-            --card-bg: #f8fafc;
             --text: #1e293b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --card-border: rgba(0,0,0,0.05);
+            --shadow: rgba(0,0,0,0.1);
+            --section-bg: #f8fafc;
         }
 
         [data-theme="dark"] {
-            --primary: #818cf8;
-            --secondary: #a5b4fc;
             --background: #0f172a;
-            --card-bg: #1e293b;
             --text: #f8fafc;
-            --border: #334155;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --card-bg: #1e293b;
+            --card-border: rgba(255,255,255,0.1);
+            --shadow: rgba(0,0,0,0.3);
+            --section-bg: #1e293b;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            transition: background 0.3s, color 0.1s;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            line-height: 1.5;
             background: var(--background);
             color: var(--text);
+            font-family: 'Inter', system-ui;
             min-height: 100vh;
-            padding: 1rem;
-            transition: background 0.3s ease;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .header {
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            padding: 0 1.5rem;
         }
 
         .theme-toggle {
             position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 0.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tool-section {
-            background: var(--card-bg);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .file-input-wrapper {
-            width: 100%;
-            padding: 2rem;
-            border: 2px dashed var(--border);
-            border-radius: 0.75rem;
-            text-align: center;
-            transition: all 0.2s ease;
-            background: var(--background);
-            cursor: pointer;
-        }
-
-        .file-input-wrapper:hover {
-            border-color: var(--primary);
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        .quality-slider {
-            width: 100%;
-            height: 8px;
-            background: var(--border);
-            border-radius: 4px;
-            -webkit-appearance: none;
-        }
-
-        .quality-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            top: 1.5rem;
+            right: 1.5rem;
             background: var(--primary);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        button {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .preview-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .preview-card {
-            background: var(--card-bg);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .preview-img {
-            width: 100%;
-            height: 300px;
-            object-fit: contain;
-            border-radius: 0.5rem;
-            background: var(--background);
-        }
-
-        .size-preview {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .size-item {
-            text-align: center;
-            padding: 1rem;
-            background: var(--background);
-            border-radius: 0.75rem;
-            border: 1px solid var(--border);
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .loading::after {
-            content: "";
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 3px solid var(--border);
-            border-top-color: var(--primary);
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .hero {
+            text-align: center;
+            padding: 8rem 0 10rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: -6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-categories {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            border: none;
+            background: var(--section-bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tool-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+            position: relative;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px var(--shadow);
+            height: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px) rotateX(3deg) rotateY(3deg);
+            box-shadow: 0 12px 32px var(--shadow);
+        }
+
+        .tool-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 1rem;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .ad-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .ad-unit {
+            background: var(--section-bg);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .preview-container {
+            .tools-grid {
                 grid-template-columns: 1fr;
             }
-
-            .size-preview {
-                grid-template-columns: 1fr;
+            
+            .hero {
+                padding: 6rem 0 8rem 0;
             }
+            
+            .tool-categories {
+                flex-wrap: wrap;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            color: var(--text);
+            opacity: 0.8;
+            margin-top: 4rem;
         }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
 
-    <div class="header">
-        <h1>Image Compressor</h1>
-        <h2>Created By Md Soliuddin</h2>
-        <p>Optimize your images instantly with real-time preview</p>
-    </div>
-
-    <div class="container">
-        <div class="tool-section">
-            <div class="input-group">
-                <label class="file-input-wrapper">
-                    <input type="file" id="imageInput" accept="image/*" hidden>
-                    <div>📷 Drag & drop or click to upload</div>
-                    <div style="margin-top: 0.5rem; color: var(--text); opacity: 0.8;">Supports JPEG, PNG, WEBP</div>
-                </label>
-
-                <div class="size-preview">
-                    <div class="size-item">
-                        <div>Original Size</div>
-                        <div id="originalSize">-</div>
-                    </div>
-                    <div class="size-item">
-                        <div>Compressed Size</div>
-                        <div id="compressedSize">-</div>
-                    </div>
-                    <div class="size-item">
-                        <div>Reduction</div>
-                        <div id="sizeReduction">-</div>
-                    </div>
-                </div>
-
-                <div style="margin: 2rem 0;">
-                    <label style="display: block; margin-bottom: 1rem;">
-                        Compression Level: <span id="qualityValue">80</span>%
-                    </label>
-                    <input type="range" id="quality" class="quality-slider" min="1" max="100" value="80">
-                </div>
-
-                <button onclick="compressImage()" style="width: 100%;">
-                    ✨ Compress Now
-                </button>
-            </div>
-
-            <div class="loading" id="loading"></div>
-
-            <div class="preview-container">
-                <div class="preview-card">
-                    <h3>Original Image</h3>
-                    <img id="originalPreview" class="preview-img">
-                </div>
-                <div class="preview-card">
-                    <h3>Compressed Image</h3>
-                    <img id="compressedPreview" class="preview-img">
-                    <div id="downloadSection" style="margin-top: 1rem;"></div>
+    <header class="hero">
+        <div class="container">
+            <h1>Ultimate File Tools</h1>
+            <p>Transform Your Files with Professional-grade Tools</p>
+            <div class="ad-container">
+                <div class="ad-unit">
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-0000000000000000"
+                        data-ad-slot="0987654321"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
+
+    <main class="container">
+        <div class="ad-container">
+            <div class="ad-unit">
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-0000000000000000"
+                    data-ad-slot="1234567890"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
+        <div class="tool-categories">
+            <button class="category-btn active" data-category="image">Image Tools</button>
+            <button class="category-btn" data-category="pdf">PDF Tools</button>
+        </div>
+
+        <!-- Image Tools -->
+        <div class="tools-grid" id="image-tools">
+            <a href="img.compress.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-compress-alt"></i></div>
+                    <h3>Image Compressor</h3>
+                    <p>Reduce image size without quality loss</p>
+                </div>
+            </a>
+            
+            <a href="format-converter.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-file-image"></i></div>
+                    <h3>Format Converter</h3>
+                    <p>Convert between JPG, PNG, WEBP</p>
+                </div>
+            </a>
+
+            <a href="image-resizer.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-expand-alt"></i></div>
+                    <h3>Image Resizer</h3>
+                    <p>Resize images to any dimension</p>
+                </div>
+            </a>
+
+            <a href="background-remover.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-magic"></i></div>
+                    <h3>Background Remover</h3>
+                    <p>Remove image backgrounds automatically</p>
+                </div>
+            </a>
+
+            <a href="photo-editor.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Photo Editor</h3>
+                    <p>Advanced editing tools & filters</p>
+                </div>
+            </a>
+
+            <a href="watermark-tool.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-tint"></i></div>
+                    <h3>Watermark Tool</h3>
+                    <p>Add custom watermarks</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- PDF Tools -->
+        <div class="tools-grid" id="pdf-tools" style="display: none;">
+            <a href="jpg-to-pdf.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>JPG to PDF</h3>
+                    <p>Convert images to PDF</p>
+                </div>
+            </a>
+
+            <a href="compress-pdf.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-file-archive"></i></div>
+                    <h3>Compress PDF</h3>
+                    <p>Reduce PDF file size</p>
+                </div>
+            </a>
+
+            <!-- Add remaining PDF tools following same pattern -->
+            <!-- Example of additional tool -->
+            <a href="merge-pdf.html" class="tool-link">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-copy"></i></div>
+                    <h3>Merge PDF</h3>
+                    <p>Combine multiple PDF files</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="ad-container">
+            <div class="ad-unit">
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-0000000000000000"
+                    data-ad-slot="1122334455"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+        <div class="container">
+            <p>© 2023 Ultimate File Tools. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        const elements = {
-            qualitySlider: document.getElementById('quality'),
-            qualityValue: document.getElementById('qualityValue'),
-            loading: document.getElementById('loading'),
-            imageInput: document.getElementById('imageInput'),
-            originalPreview: document.getElementById('originalPreview'),
-            compressedPreview: document.getElementById('compressedPreview'),
-            originalSize: document.getElementById('originalSize'),
-            compressedSize: document.getElementById('compressedSize'),
-            sizeReduction: document.getElementById('sizeReduction'),
-            downloadSection: document.getElementById('downloadSection')
-        };
-
-        let currentCompressedBlob = null;
-
-        // Theme Toggle
-        function toggleTheme() {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        // Theme Management
+        const themeToggle = document.querySelector('.theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
 
-        // Initialize Theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
 
-        // Event Listeners
-        elements.imageInput.addEventListener('change', handleFileSelect);
-        elements.qualitySlider.addEventListener('input', handleQualityChange);
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        setTheme(savedTheme);
 
-        async function handleFileSelect(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            // Reset previous results
-            elements.compressedPreview.src = '';
-            elements.compressedSize.textContent = '-';
-            elements.sizeReduction.textContent = '-';
-            elements.downloadSection.innerHTML = '';
-
-            // Show original preview
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                elements.originalPreview.src = e.target.result;
-                elements.originalSize.textContent = `${(file.size / 1024).toFixed(2)} KB`;
-            };
-            reader.readAsDataURL(file);
-
-            // Initial compression
-            await compressImage();
-        }
-
-        function handleQualityChange() {
-            elements.qualityValue.textContent = this.value;
-            if (elements.imageInput.files[0]) {
-                compressImage();
-            }
-        }
-
-        async function compressImage() {
-            const file = elements.imageInput.files[0];
-            if (!file) return alert('Please select an image first!');
-
-            elements.loading.style.display = 'block';
-            
-            try {
-                const img = await loadImage(file);
-                const blob = await processImage(img, file.type);
+        // Category Switching
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
                 
-                // Update compressed preview
-                const compressedUrl = URL.createObjectURL(blob);
-                elements.compressedPreview.src = compressedUrl;
-                
-                // Update size info
-                const originalSize = file.size;
-                const compressedSize = blob.size;
-                const reduction = ((1 - (compressedSize / originalSize)) * 100).toFixed(1);
-                
-                elements.compressedSize.textContent = `${(compressedSize / 1024).toFixed(2)} KB`;
-                elements.sizeReduction.textContent = `${reduction}%`;
-
-                // Update download link
-                updateDownloadLink(blob, file.name);
-                
-                // Cleanup previous blob
-                if (currentCompressedBlob) {
-                    URL.revokeObjectURL(currentCompressedBlob);
-                }
-                currentCompressedBlob = compressedUrl;
-
-            } catch (error) {
-                alert('Error compressing image: ' + error.message);
-            } finally {
-                elements.loading.style.display = 'none';
-            }
-        }
-
-        function loadImage(file) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = URL.createObjectURL(file);
-                img.onload = () => resolve(img);
-                img.onerror = reject;
+                document.getElementById('image-tools').style.display = 
+                    btn.dataset.category === 'image' ? 'grid' : 'none';
+                document.getElementById('pdf-tools').style.display = 
+                    btn.dataset.category === 'pdf' ? 'grid' : 'none';
             });
-        }
+        });
 
-        function processImage(img, mimeType) {
-            return new Promise(resolve => {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
+        // 3D Card Effect
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const rotateY = (e.clientX - rect.left - rect.width/2) / 15;
+                const rotateX = (rect.height/2 - (e.clientY - rect.top)) / 15;
                 
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                
-                const quality = elements.qualitySlider.value / 100;
-                canvas.toBlob(blob => resolve(blob), mimeType, quality);
+                card.style.transform = `
+                    perspective(1000px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    translateZ(10px)
+                `;
             });
-        }
 
-        function updateDownloadLink(blob, filename) {
-            elements.downloadSection.innerHTML = '';
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `compressed_${filename}`;
-            link.textContent = '⬇️ Download Compressed Image';
-            link.style.color = 'var(--primary)';
-            link.style.textDecoration = 'none';
-            link.style.fontWeight = '600';
-            elements.downloadSection.appendChild(link);
-        }
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+
+        // Initialize Ads
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </body>
 </html>
